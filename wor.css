@@ -1,0 +1,25 @@
+body{
+    background-color: #012300;
+}
+
+
+.input{
+
+    margin-left: 35%;
+    width: fit-content;
+  
+    align-self: center;
+    align-content: center;
+    text-align: center;
+  
+}
+
+input{
+    border-radius: 40%;
+    font-size:25px;
+    text-align: center;
+    margin: 4px;
+    width: 50px;
+    height: 50px;
+}
+

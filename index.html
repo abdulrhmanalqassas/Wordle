@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wor</title>
+    <link rel="stylesheet" href="./wor.css">
+</head>
+
+<body>
+    
+    <div class="input" id="1">
+        <input  maxlength="1" type="text">
+        <input  maxlength="1" type="text">
+        <input  maxlength="1" type="text">
+        <input  maxlength="1" type="text">
+        <input  maxlength="1" type="text">
+    </div>
+    <div class="input" id="2">
+        <input  maxlength="1" type="text">
+        <input  maxlength="1" type="text">
+        <input  maxlength="1" type="text">
+        <input  maxlength="1" type="text">
+        <input  maxlength="1" type="text">
+    </div>
+    <div class="input" id="3">
+        <input  maxlength="1" type="text">
+        <input  maxlength="1" type="text">
+        <input  maxlength="1" type="text">
+        <input  maxlength="1" type="text">
+        <input  maxlength="1" type="text">
+    </div>
+    <div class="input" id="4">
+        <input  maxlength="1" type="text">
+        <input  maxlength="1" type="text">
+        <input  maxlength="1" type="text">
+        <input  maxlength="1" type="text">
+        <input  maxlength="1" type="text">
+    </div>
+    <div class="input" id="5">
+        <input  maxlength="1" type="text">
+        <input  maxlength="1" type="text">
+        <input  maxlength="1" type="text">
+        <input  maxlength="1" type="text">
+        <input  maxlength="1" type="text">
+    </div>
+    <button id="try">
+        try
+    </button>
+</body>
+<script src="./wor.js"></script>
+<script>
+    let id ;
+    let corectWord = "coder"
+    restState(corectWord)
+   if(localStorage.getItem("id")) { 
+        id= localStorage.getItem("id");}
+   else {
+        localStorage.setItem("id",1)
+        id= localStorage.getItem("id");
+    };
+
+    restorState(id,corectWord)
+    let button = document.getElementById("try")
+    button.addEventListener("mousedown",()=>{
+        id.toString()
+        let word = getInput(id);
+        let validation = validteWord(word,corectWord,5) ;
+        changeColor(showResult(validation),id);
+        localStorage.setItem(id,word);
+        localStorage.setItem("id", id++)
+    })
+
+</script>
