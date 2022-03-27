@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,66 +15,72 @@
     </nav>
     <div id="WGrid">
 
-    <div class="input" id="1">
-        <input  maxlength="1" type="text">
-        <input  maxlength="1" type="text">
-        <input  maxlength="1" type="text">
-        <input  maxlength="1" type="text">
-        <input  maxlength="1" type="text">
-    </div>
-    <div class="input" id="2">
-        <input  maxlength="1" type="text">
-        <input  maxlength="1" type="text">
-        <input  maxlength="1" type="text">
-        <input  maxlength="1" type="text">
-        <input  maxlength="1" type="text">
-    </div>
-    <div class="input" id="3">
-        <input  maxlength="1" type="text">
-        <input  maxlength="1" type="text">
-        <input  maxlength="1" type="text">
-        <input  maxlength="1" type="text">
-        <input  maxlength="1" type="text">
-    </div>
-    <div class="input" id="4">
-        <input  maxlength="1" type="text">
-        <input  maxlength="1" type="text">
-        <input  maxlength="1" type="text">
-        <input  maxlength="1" type="text">
-        <input  maxlength="1" type="text">
-    </div>
-    <div class="input" id="5">
-        <input  maxlength="1" type="text">
-        <input  maxlength="1" type="text">
-        <input  maxlength="1" type="text">
-        <input  maxlength="1" type="text">
-        <input  maxlength="1" type="text">
-    </div>
+        <div class="input" id="1">
+            <input maxlength="1" type="text">
+            <input maxlength="1" type="text">
+            <input maxlength="1" type="text">
+            <input maxlength="1" type="text">
+            <input maxlength="1" type="text">
         </div>
-        
+        <div class="input" id="2">
+            <input maxlength="1" type="text">
+            <input maxlength="1" type="text">
+            <input maxlength="1" type="text">
+            <input maxlength="1" type="text">
+            <input maxlength="1" type="text">
+        </div>
+        <div class="input" id="3">
+            <input maxlength="1" type="text">
+            <input maxlength="1" type="text">
+            <input maxlength="1" type="text">
+            <input maxlength="1" type="text">
+            <input maxlength="1" type="text">
+        </div>
+        <div class="input" id="4">
+            <input maxlength="1" type="text">
+            <input maxlength="1" type="text">
+            <input maxlength="1" type="text">
+            <input maxlength="1" type="text">
+            <input maxlength="1" type="text">
+        </div>
+        <div class="input" id="5">
+            <input maxlength="1" type="text">
+            <input maxlength="1" type="text">
+            <input maxlength="1" type="text">
+            <input maxlength="1" type="text">
+            <input maxlength="1" type="text">
+        </div>
+    </div>
+
     <button id="try">
         try
     </button>
 </body>
 <script src="./wor.js"></script>
 <script>
-    let id ;
-    let corectWord = "align"
+    let id;
+    let corectWord = "clign"
     restState(corectWord)
     start()
-    restorState(id,corectWord)
+    restorState(id, corectWord)
     let button = document.getElementById("try")
-    button.addEventListener("mousedown",()=>{
+    button.addEventListener("mousedown", () => {
         id.toString()
         let word = getInput(id);
-        let validation = validteWord(word,corectWord,5) ;
-        changeColor(showResult(validation),id);
+        let validation = validteWord(word, corectWord, 5);
+        if (outPut(showResult(validation), id) === true){
+            stopGame(button)
+           
+        }
         localStorage.setItem(id,word);
         localStorage.setItem("id", id++)
-        let curint =  localStorage.getItem("curint")
-        localStorage.setItem("curint",id )
-        disabled()
-        unabled()  
+        
+        let curint = localStorage.getItem("curint")
+        if (localStorage.getItem("gameState")!=="false"){
+            localStorage.setItem("curint", id)
+            disabled()
+            unabled()
+        }   
     })
 
 </script>
