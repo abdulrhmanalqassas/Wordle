@@ -9,7 +9,11 @@
 </head>
 
 <body>
-    
+    <nav>
+        <h1>Wordle</h1>
+    </nav>
+    <div id="WGrid">
+
     <div class="input" id="1">
         <input  maxlength="1" type="text">
         <input  maxlength="1" type="text">
@@ -45,6 +49,8 @@
         <input  maxlength="1" type="text">
         <input  maxlength="1" type="text">
     </div>
+        </div>
+        
     <button id="try">
         try
     </button>
@@ -52,15 +58,9 @@
 <script src="./wor.js"></script>
 <script>
     let id ;
-    let corectWord = "coder"
+    let corectWord = "align"
     restState(corectWord)
-   if(localStorage.getItem("id")) { 
-        id= localStorage.getItem("id");}
-   else {
-        localStorage.setItem("id",1)
-        id= localStorage.getItem("id");
-    };
-
+    start()
     restorState(id,corectWord)
     let button = document.getElementById("try")
     button.addEventListener("mousedown",()=>{
@@ -70,6 +70,10 @@
         changeColor(showResult(validation),id);
         localStorage.setItem(id,word);
         localStorage.setItem("id", id++)
+        let curint =  localStorage.getItem("curint")
+        localStorage.setItem("curint",id )
+        disabled()
+        unabled()  
     })
 
 </script>

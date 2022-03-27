@@ -1,9 +1,10 @@
 body{
     background-color: #010416;
-    color: blanchedalmond;
+    color: blanchedalmond ;
+    
 }
 nav *{
-    border: turquoise 2;
+    border-bottom: rgb(110, 28, 216) solid 3px;
     color: blanchedalmond;
     align-items: flex-end;
 }
@@ -15,7 +16,7 @@ nav h1 {
 }
 
 .input{
-
+   
     margin-left: 35%;
     width: fit-content;
   
@@ -26,12 +27,12 @@ nav h1 {
 }
 
 input{
-
-    border-radius: 40%;
+    
+    /* background: transparent; */
+    border-radius:30%;
     font-size:25px;
     text-align: center;
     margin: 4px;
     width: 50px;
     height: 50px;
 }
-

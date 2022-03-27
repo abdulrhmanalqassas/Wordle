@@ -1,18 +1,3 @@
-fetch("https://wordsapiv1.p.rapidapi.com/words/.22-caliber/pertainsTo", {
-	"method": "GET",
-	"headers": {
-		"x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
-		"x-rapidapi-key": "4ba95fa239mshb1a87eb13adca9fp1a656bjsn1da88a342d75"
-	}
-})
-.then(response => {
-	console.log(response);
-})
-.catch(err => {
-	console.error(err);
-});
-
-
 
 class pos {
   constructor(indeinputElem,letter,valu,otherpos=null){
@@ -42,7 +27,7 @@ function validteWord(word,corectWord,length){
                   }
                 }
               };
-            }else  confirm.push(new pos(i,letter,"gray"));
+            }else  confirm.push(new pos(i,letter,"red"));
     };
     return confirm
 
@@ -97,8 +82,9 @@ function showResult(array) {
 
 
 function getInput(id){
-   let fild = document.getElementById(id)
-   fild = fild.querySelectorAll("input")
+    let fild = document.getElementById(id)
+    
+    fild = fild.querySelectorAll("input")
 
   let inputArr = []
   for (let elem of fild ){
@@ -112,8 +98,8 @@ function getInput(id){
     inputElem = inputElem.querySelectorAll("input")
     let i = 0;
   for (let elem of inputElem ){
-    elem.style.backgroundColor = colorArr[i];
-    elem.disabled = true;
+    elem.style.backgroundColor = colorArr[i] ;
+    // elem.disabled = true;
     i++;
   }
     
@@ -131,7 +117,8 @@ function getInput(id){
     inputElem = inputElem.querySelectorAll("input")
     let i = 0;
   for (let elem of inputElem ){
-    elem.value = word[i]
+    elem.value = word[i];
+    elem.disabled= true;
      i++;
   }
     
@@ -142,6 +129,7 @@ function restState(corectWord){
   localWord = localStorage.getItem("localWord")
   if (localWord != corectWord){
     localStorage.clear()
+    localStorage.setItem("curint",1)
     localStorage.setItem("id",1)
     localStorage.setItem("localWord",corectWord)
   }
@@ -157,4 +145,36 @@ function restorState(id,corectWord){
         changeColor(showResult(validation),i);
     }
 }
+}
+
+
+function disabled (){
+  let allInput = document.querySelectorAll("input")
+    for (let elem of allInput ){
+      elem.disabled = true;
+     
+    }
+
+}
+
+function unabled(){
+  let curint = localStorage.getItem("curint");
+  let curintPos = document.getElementById(curint);
+  let inGroup = curintPos.querySelectorAll("input");
+  for (let elem of inGroup){
+    elem.disabled = false;
+  }
+}
+function start(){
+  if(localStorage.getItem("id")) { 
+    id= localStorage.getItem("id");
+    localStorage.setItem("curint",id)
+}
+else {
+    localStorage.setItem("curint",1)
+    localStorage.setItem("id",1)
+    id= localStorage.getItem("id");
+};
+disabled()
+unabled()
 }
