@@ -10,6 +10,7 @@ class pos {
 function validteWord(word, corectWord, length) {
   if ((word.length !== corectWord.length) | (corectWord.length !== length))
     throw new Error("invalid input");
+    
   let confirm = [];
   for (let i = 0; i < word.length; i++) {
     let letter = word[i];
@@ -18,13 +19,13 @@ function validteWord(word, corectWord, length) {
         let corectLetter = corectWord[j];
         if (letter === corectLetter) {
           if (i === j) {
-            confirm.push(new pos(i, letter, "green"));
+            confirm.push(new pos(i, letter, "#538d4e"));
           } else {
-            confirm.push(new pos(i, letter, "yellow", j));
+            confirm.push(new pos(i, letter, "#b59f3b", j));
           }
         }
       }
-    } else confirm.push(new pos(i, letter, "red"));
+    } else confirm.push(new pos(i, letter, "#f5793a"));
   }
   return confirm;
 }
@@ -64,17 +65,17 @@ function showResult(array) {
     let prop = indeinputElemValus.length;
     if (prop == 1) result.push(indeinputElemValus[0].valu);
     else {
-      let isGreen = filterOut(array, i, "green").length;
-      if (isGreen) result.push(filterOut(array, i, "green")[0].valu);
+      let isGreen = filterOut(array, i, "#538d4e").length;
+      if (isGreen) result.push(filterOut(array, i, "#538d4e")[0].valu);
       else {
-        let isYallow = filterOut(array, i, "yallow");
+        let isYallow = filterOut(array, i, "#b59f3b");
 
         for (let elem of isYallow) {
           anotherpos.push(elem.otherpos);
         }
 
         //  result.push(["yallow",anotherpos])}
-        result.push("yellow");
+        result.push("#b59f3b");
       }
     }
   }
@@ -99,10 +100,10 @@ function outPut(colorArr, id) {
   let i = 0;
   let out = true;
   for (let elem of inputElem) {
-    let color =  colorArr[i];
-    if (out === true & color !== "green") out=false;
-    elem.style.backgroundColor =color;
-    // elem.disabled = true;
+    let color = colorArr[i];
+    if ((out === true) & (color !== "#538d4e")) out = false;
+    elem.style.backgroundColor = color;
+    elem.style.color ="white";
     i++;
   }
   return out;
@@ -132,7 +133,7 @@ function restState(corectWord) {
     localStorage.setItem("curint", 1);
     localStorage.setItem("id", 1);
     localStorage.setItem("localWord", corectWord);
-    localStorage.setItem("gameState",true)
+    localStorage.setItem("gameState", true);
   }
 }
 
@@ -165,7 +166,12 @@ function unabled() {
 function start() {
   if (localStorage.getItem("id")) {
     id = localStorage.getItem("id");
-    localStorage.setItem("curint", id);
+    let c = id
+    if (id > 1 ){ 
+    c++
+    }
+    
+    localStorage.setItem("curint", c);
   } else {
     localStorage.setItem("curint", 1);
     localStorage.setItem("id", 1);
@@ -176,8 +182,30 @@ function start() {
 }
 
 function stopGame(input) {
-  disabled()
-  console.log("stop????????????????")
-  input.disabled = true ;
-  localStorage.setItem("gameState", false)
+  disabled();
+  console.log("stop????????????????");
+  input.disabled = true;
+  localStorage.setItem("gameState", false);
 }
+
+let categorys = {
+  "plant" : ["apple","chard","Choko"] ,
+  "cars": ["volvo","honda"],
+  "food": ["bagel","bread","bacon"]
+
+}
+
+class category {
+  constructor(categorys){
+    this.categorys = categorys;
+  }
+  get all (){
+   return  Object.keys(this.categorys)
+  }
+
+  word(choise){
+  let items = this.categorys[choise]
+  return items[Math.floor(Math.random()*items.length)] ;
+  }
+}
+let  myCategorys= new category(categorys)

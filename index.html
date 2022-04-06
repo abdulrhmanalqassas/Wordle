@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
     <title>wor</title>
     <link rel="stylesheet" href="./wor.css">
 </head>
@@ -13,14 +16,19 @@
     <nav>
         <h1>Wordle</h1>
     </nav>
-    <div id="WGrid">
+    <select name="categorys" id="categorys">
+        <option value="cars" selected>cars</option>
+        <option value="food">food</option>
+        <option value="plant">Fruits</option>
+    </select>
+    <div class="flex" id="WGrid">
 
         <div class="input" id="1">
-            <input maxlength="1" type="text">
-            <input maxlength="1" type="text">
-            <input maxlength="1" type="text">
-            <input maxlength="1" type="text">
-            <input maxlength="1" type="text">
+            <input maxlength="1" type="text" value="" outocomplte="off">
+            <input maxlength="1" type="text" value="" outocomplte="off">
+            <input maxlength="1" type="text" value="" outocomplte="off">
+            <input maxlength="1" type="text" value="" outocomplte="off">
+            <input maxlength="1" type="text" value="" outocomplte="off">
         </div>
         <div class="input" id="2">
             <input maxlength="1" type="text">
@@ -51,6 +59,9 @@
             <input maxlength="1" type="text">
         </div>
     </div>
+    <div id="keyboard">
+
+    </div>
 
     <button id="try">
         try
@@ -59,28 +70,48 @@
 <script src="./wor.js"></script>
 <script>
     let id;
-    let corectWord = "clign"
-    restState(corectWord)
-    start()
+    let choise = document.getElementById("categorys")
+    let corectWord
+    
+    if (localStorage.getItem("localWord") === null) {
+        corectWord = myCategorys.word(myCategorys.all[Math.floor(Math.random() * myCategorys.all.length)])
+        restState(corectWord)
+        start()
+    }else{
+        corectWord = localStorage.getItem("localWord")
+        restState(corectWord)
+        start()
+    }
+
+    choise.addEventListener("change", () => {
+        choiseWord = myCategorys.word(choise.value)
+        restState(choiseWord)
+        // localStorage.setItem("localWord",choiseWord)
+        start()
+        window.location.reload();
+
+    })
+
     restorState(id, corectWord)
     let button = document.getElementById("try")
     button.addEventListener("mousedown", () => {
         id.toString()
         let word = getInput(id);
         let validation = validteWord(word, corectWord, 5);
-        if (outPut(showResult(validation), id) === true){
+        if (outPut(showResult(validation), id) === true) {
             stopGame(button)
-           
+
         }
-        localStorage.setItem(id,word);
+        localStorage.setItem(id, word);
         localStorage.setItem("id", id++)
-        
+
         let curint = localStorage.getItem("curint")
-        if (localStorage.getItem("gameState")!=="false"){
+        if (localStorage.getItem("gameState") !== "false") {
             localStorage.setItem("curint", id)
             disabled()
             unabled()
-        }   
+            
+        }
     })
 
 </script>
