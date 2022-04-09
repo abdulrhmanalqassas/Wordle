@@ -1,3 +1,16 @@
+// const options = {
+// 	method: 'GET',
+// 	headers: {
+// 		'X-RapidAPI-Host': 'twinword-word-graph-dictionary.p.rapidapi.com',
+// 		'X-RapidAPI-Key': '4ba95fa239mshb1a87eb13adca9fp1a656bjsn1da88a342d75'
+// 	}
+// };
+
+// fetch('https://www.dictionaryapi.com/api/v3/references/collegiate/json/voluminous?key=your-api-key')
+// 	.then(response => response.json())
+// 	.then(response => console.log(response))
+// 	.catch(err => console.error(err));
+
 class pos {
   constructor(indeinputElem, letter, valu, otherpos = null) {
     this.indeinputElem = indeinputElem;
@@ -10,7 +23,7 @@ class pos {
 function validteWord(word, corectWord, length) {
   if ((word.length !== corectWord.length) | (corectWord.length !== length))
     throw new Error("invalid input");
-    
+
   let confirm = [];
   for (let i = 0; i < word.length; i++) {
     let letter = word[i];
@@ -103,7 +116,7 @@ function outPut(colorArr, id) {
     let color = colorArr[i];
     if ((out === true) & (color !== "#538d4e")) out = false;
     elem.style.backgroundColor = color;
-    elem.style.color ="white";
+    elem.style.color = "white";
     i++;
   }
   return out;
@@ -166,19 +179,23 @@ function unabled() {
 function start() {
   if (localStorage.getItem("id")) {
     id = localStorage.getItem("id");
-    let c = id
-    if (id > 1 ){ 
-    c++
+    let c = id;
+    if (id > 1) {
+      c++;
     }
-    
+
     localStorage.setItem("curint", c);
   } else {
     localStorage.setItem("curint", 1);
     localStorage.setItem("id", 1);
     id = localStorage.getItem("id");
   }
-  disabled();
-  unabled();
+  if (localStorage.getItem("gameState") === "false") {
+    disabled();
+  } else {
+    disabled();
+    unabled();
+  }
 }
 
 function stopGame(input) {
@@ -189,23 +206,40 @@ function stopGame(input) {
 }
 
 let categorys = {
-  "plant" : ["apple","chard","Choko"] ,
-  "cars": ["volvo","honda"],
-  "food": ["bagel","bread","bacon"]
-
-}
+  plant: ["apple", "chard", "choko", "lemon", "mango"],
+  cars: ["VOLVO", "HONDA"],
+  food: ["bagel", "bread", "bacon"],
+};
 
 class category {
-  constructor(categorys){
+  constructor(categorys) {
     this.categorys = categorys;
   }
-  get all (){
-   return  Object.keys(this.categorys)
+  get all() {
+    return Object.keys(this.categorys);
   }
 
-  word(choise){
-  let items = this.categorys[choise]
-  return items[Math.floor(Math.random()*items.length)] ;
+  word(choise) {
+    let items = this.categorys[choise];
+    return items[Math.floor(Math.random() * items.length)].toLowerCase();
   }
 }
-let  myCategorys= new category(categorys)
+let myCategorys = new category(categorys);
+
+function inputValidation(id, button) {
+  let word = getInput(id).toLowerCase();
+
+  let validation = validteWord(word, corectWord, 5);
+  if (outPut(showResult(validation), id) === true) {
+    stopGame(button);
+  }
+  localStorage.setItem(id, word);
+  localStorage.setItem("id", id++);
+
+  if (localStorage.getItem("gameState") !== "false") {
+    localStorage.setItem("curint", id);
+    disabled();
+    unabled();
+  }
+}
+

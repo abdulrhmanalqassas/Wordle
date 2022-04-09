@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv='cache-control' content='no-cache'>
+    <!-- <meta http-equiv='cache-control' content='no-cache'>
     <meta http-equiv='expires' content='0'>
-    <meta http-equiv='pragma' content='no-cache'>
+    <meta http-equiv='pragma' content='no-cache'> -->
     <title>wor</title>
     <link rel="stylesheet" href="./wor.css">
 </head>
@@ -17,8 +17,9 @@
         <h1>Wordle</h1>
     </nav>
     <select name="categorys" id="categorys">
-        <option value="cars" selected>cars</option>
+      
         <option value="food">food</option>
+        <option value="cars" >cars</option>
         <option value="plant">Fruits</option>
     </select>
     <div class="flex" id="WGrid">
@@ -93,16 +94,22 @@
     })
 
     restorState(id, corectWord)
-    let button = document.getElementById("try")
-    button.addEventListener("mousedown", () => {
-        id.toString()
-        let word = getInput(id);
-        let validation = validteWord(word, corectWord, 5);
+    function validIN(){
+        let strId = id.toString()
+        let word = getInput(id).toLowerCase();
+        let validation ;
+       try{
+         validteWord(word, corectWord, 5);
+         validation = validteWord(word, corectWord, 5);
+       }catch(error){
+           console.error("****",error);
+       }
+        
         if (outPut(showResult(validation), id) === true) {
             stopGame(button)
 
         }
-        localStorage.setItem(id, word);
+        localStorage.setItem(strId, word);
         localStorage.setItem("id", id++)
 
         let curint = localStorage.getItem("curint")
@@ -112,6 +119,18 @@
             unabled()
             
         }
+    }
+    let button = document.getElementById("try")
+    let inputHold = document.getElementById("WGrid")
+    button.addEventListener("mousedown", () => {
+        validIN()
+        
+    })
+    inputHold.addEventListener("keydown", event => {
+       if (event.key==="Enter"){
+        validIN()
+       }
+           
     })
 
 </script>
